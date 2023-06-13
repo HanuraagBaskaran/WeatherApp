@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import '../styles/Weather.css'
+import '../styles/Weather.css';
 
 const Weather = () => {
   const [latestForecast, setLatestForecast] = useState(null);
   const [city, setCity] = useState('');
 
   useEffect(() => {
-    const fetchWeather = async () => {
+    const fetchWeather = async (latitude, longitude) => {
       const apiKey = '70994374cdde6a0666ebcb73745c7283';
-      const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&units=metric&appid=${apiKey}`;
+      const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&units=metric&appid=${apiKey}&_=${Date.now()}`;
 
       try {
         const response = await fetch(apiUrl);
@@ -21,29 +21,27 @@ const Weather = () => {
       }
     };
     const getLocation = () => {
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(
-            (position) => {
-              const latitude = position.coords.latitude;
-              const longitude = position.coords.longitude;
-              fetchWeather(latitude, longitude);
-            },
-            (error) => {
-              console.error('Error getting geolocation:', error);
-            }
-          );
-        } else {
-          console.error('Geolocation is not supported by this browser.');
-        }
-      };
-  
-      
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+            fetchWeather(latitude, longitude);
+          },
+          (error) => {
+            console.error('Error getting geolocation:', error);
+          }
+        );
+      } else {
+        console.error('Geolocation is not supported by this browser.');
+      }
+    };
 
-    fetchWeather();
     getLocation();
   }, []);
 
   return (
+    
     <div className="container mt-5">
       <h2 className="text-center mb-4">Weather Forecast for {city}</h2>
       {latestForecast && (
