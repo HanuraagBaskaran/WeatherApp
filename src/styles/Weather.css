@@ -3,3 +3,81 @@
     border: 1px solid ;
     box-shadow: 0 2px 5px rgba(0,0,0,0.3);
 }
+
+.weather-thunderstorm {
+    background-image: url('../components/images/thunderstorm.jpeg');
+    /* Additional styling */
+  }
+  
+  .weather-drizzle {
+    background-image: url('../components/images/drizzle.jpeg');
+    /* Additional styling */
+  }
+  
+  .weather-rain {
+    background-image: url('../components/images/rain.jpg');
+    /* Additional styling */
+  }
+  
+  .weather-snow {
+    background-image: url('../components/images/snow.jpeg');
+    /* Additional styling */
+  }
+  
+  .weather-mist {
+    background-image: url('../components/images/mist.jpeg');
+    /* Additional styling */
+  }
+  
+  .weather-smoke {
+    background-image: url('../components/images/smoke.jpeg');
+    /* Additional styling */
+  }
+  
+  .weather-haze {
+    background-image: url('../components/images/haze.png');
+    /* Additional styling */
+  }
+  
+  .weather-dust {
+    background-image: url('../components/images/dust.jpg');
+    /* Additional styling */
+  }
+  
+  .weather-fog {
+    background-image: url('../components/images/fog.jpg');
+    /* Additional styling */
+  }
+  
+  .weather-sand {
+    background-image: url('../components/images/sand.jpeg');
+    /* Additional styling */
+  }
+  
+  .weather-ash {
+    background-image: url('../components/images/ash.jpg');
+    /* Additional styling */
+  }
+  
+  .weather-squall {
+    background-image: url('../components/images/squall.jpg');
+    /* Additional styling */
+  }
+  
+  .weather-tornado {
+    background-image: url('../components/images/tornado.jpeg');
+    /* Additional styling */
+  }
+  
+  .weather-clear {
+    background-image: url('../components/images/clear.jpeg');
+    /* Additional styling */
+  }
+  
+  .weather-clouds {
+    background-image: url('../components/images/clouds.jpeg');
+    /* Additional styling */
+  }
+  
+  /* Additional CSS styles for all weather conditions */
+  
