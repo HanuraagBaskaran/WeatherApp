@@ -134,13 +134,13 @@ const Weather = () => {
     <div>
     <div className='container mt-5'>
       <nav className='navbar'>
-        <a className='navbar-brand' href='#'>Weather</a>
-        <ul class="navbar-nav mr-auto">
-      <li class="nav-item ">
-        <a class="nav-link" href="#">Home</a>
+        <a className='navbar-brand' href='/'>Weather</a>
+        <ul className="navbar-nav mr-auto">
+      <li className="nav-item ">
+        <a className="nav-link" href="/">Home</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/search">Search</a>
+      <li className="nav-item">
+        <a className="nav-link" href="/search">Search</a>
       </li>
       </ul>
       </nav>

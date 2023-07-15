@@ -99,6 +99,20 @@ const Search = () => {
   }
 
   return (
+    <div>
+      <div className='container mt-5'>
+      <nav className='navbar'>
+        <a className='navbar-brand' href='/'>Weather</a>
+        <ul className="navbar-nav mr-auto">
+      <li className="nav-item ">
+        <a className="nav-link" href="/">Home</a>
+      </li>
+      <li className="nav-item">
+        <a className="nav-link" href="search">Search</a>
+      </li>
+      </ul>
+      </nav>
+    </div>
     <div className={`container mt-5 ${weatherClass}`}>
       <input
         type="text"
@@ -124,6 +138,7 @@ const Search = () => {
         </div>
         );
       })}
+    </div>
     </div>
   );
 };
