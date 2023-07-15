@@ -130,8 +130,21 @@ const Weather = () => {
   }
 
 
-  return (
-    
+  return(
+    <div>
+    <div className='container mt-5'>
+      <nav className='navbar'>
+        <a className='navbar-brand' href='#'>Weather</a>
+        <ul class="navbar-nav mr-auto">
+      <li class="nav-item ">
+        <a class="nav-link" href="#">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/search">Search</a>
+      </li>
+      </ul>
+      </nav>
+    </div>
     <div className={`container mt-5 ${weatherClass}`}>
       <h2 className="text-center mb-4">Weather Forecast for {city}</h2>
       {latestForecast && (
@@ -152,6 +165,7 @@ const Weather = () => {
         </div>
         );
       })}
+    </div>
     </div>
   );
 };

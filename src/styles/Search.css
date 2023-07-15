@@ -1,0 +1,59 @@
+.weather-thunderstorm {
+    background-image: url('../components/images/thunderstorm.jpeg');
+  }
+  
+  .weather-drizzle {
+    background-image: url('../components/images/drizzle.jpeg');
+  }
+  
+  .weather-rain {
+    background-image: url('../components/images/rain.jpg');
+  }
+  
+  .weather-snow {
+    background-image: url('../components/images/snow.jpeg');
+  }
+  
+  .weather-mist {
+    background-image: url('../components/images/mist.jpeg');
+  }
+  
+  .weather-smoke {
+    background-image: url('../components/images/smoke.jpeg');
+  }
+  
+  .weather-haze {
+    background-image: url('../components/images/haze.png');
+  }
+  
+  .weather-dust {
+    background-image: url('../components/images/dust.jpg');
+  }
+  
+  .weather-fog {
+    background-image: url('../components/images/fog.jpg');
+  }
+  
+  .weather-sand {
+    background-image: url('../components/images/sand.jpeg');
+  }
+  
+  .weather-ash {
+    background-image: url('../components/images/ash.jpg');
+  }
+  
+  .weather-squall {
+    background-image: url('../components/images/squall.jpg');
+  }
+  
+  .weather-tornado {
+    background-image: url('../components/images/tornado.jpeg');
+  }
+  
+  .weather-clear {
+    background-image: url('../components/images/clear.jpeg');
+  }
+  
+  .weather-clouds {
+    background-image: url('../components/images/clouds.jpeg');
+  }
