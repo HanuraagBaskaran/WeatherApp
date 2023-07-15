@@ -8,9 +8,17 @@ const Weather = () => {
 
   useEffect(() => {
     const fetchWeather = async (latitude, longitude) => {
+      const cachedData=sessionStorage.getItem('weatherData');
+    if(cachedData){
+      const parsedData=JSON.parse(cachedData);
+      setLatestForecast(parsedData.latestForecast);
+      setCity(parsedData.city);
+      setForecastData(parsedData.forecastData);
+      console.log("cached data")
+    }
+    else{
       const apiKey = '70994374cdde6a0666ebcb73745c7283';
       const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&units=metric&appid=${apiKey}&_=${Date.now()}`;
-
       try {
         const response = await fetch(apiUrl);
         const data = await response.json();
@@ -19,9 +27,18 @@ const Weather = () => {
         const weeklyForecast = calculateWeeklyForecast(data.list);
         setForecastData(weeklyForecast);
 
+        const cachedData=JSON.stringify({
+          latestForecast:data.list[0],
+          city:data.city.name,
+          forecastData:weeklyForecast
+        });
+        sessionStorage.setItem('weatherData', cachedData);
+        console.log(sessionStorage.getItem("weatherData"))
+
       } catch (error) {
         console.error('Error fetching weather data:', error);
       }
+    }
     };
 
     const calculateWeeklyForecast=(forecastItem)=>{
@@ -52,7 +69,6 @@ const Weather = () => {
 
       const dailyForecastArray = Array.from(dailyForecastMap.values());
       setForecastData(dailyForecastArray);
-      console.log(dailyForecastArray)
       return dailyForecastArray;
     }
 
