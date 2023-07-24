@@ -1,10 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/Weather.css';
+import Navbar from './Navbar.js'
 
 const Weather = () => {
   const [latestForecast, setLatestForecast] = useState(null);
   const [city, setCity] = useState('');
   const [forecastData, setForecastData] = useState([]);
+
+  const getDate = (dailyForecast) => {
+    const date = dailyForecast.dt_txt.split(' ')[0];
+    const dayDate = new Date(date);
+    const day = dayDate.toLocaleDateString('en-US', { weekday: 'long' });  
+    return day;
+  };
 
   useEffect(() => {
     const fetchWeather = async (latitude, longitude) => {
@@ -33,7 +41,6 @@ const Weather = () => {
           forecastData:weeklyForecast
         });
         sessionStorage.setItem('weatherData', cachedData);
-        console.log(sessionStorage.getItem("weatherData"))
 
       } catch (error) {
         console.error('Error fetching weather data:', error);
@@ -43,8 +50,18 @@ const Weather = () => {
 
     const calculateWeeklyForecast=(forecastItem)=>{
       const dailyForecastMap= new Map();
+      let dateCounter = 0;
       forecastItem.forEach(element => {
         const date=element.dt_txt.split(' ')[0];
+        const dayDate = new Date(date);
+        const day = dayDate.toLocaleDateString('en-US', { weekday: 'long' });
+        const parts = date.split("-");
+        const formattedDate = `${parts[2]}-${parts[1]}`
+
+        if (dateCounter <=4) {
+          dateCounter++;
+          return; // Skip the first 4 dates
+        }
 
         if (dailyForecastMap.has(date)){
           const existingForecast=dailyForecastMap.get(date);
@@ -56,13 +73,14 @@ const Weather = () => {
             existingForecast.minTemp,
             element.main.temp_min
           );
-          existingForecast.weatherConditions.push(element.weather[0].description)
         }else{
           dailyForecastMap.set(date,{
-            date,
+            formattedDate,
+            day,
             maxTemp:element.main.temp_max,
             minTemp:element.main.temp_min,
-            weatherConditions: [element.weather[0].description],
+            weatherConditions: [element.weather[0].main],
+            weatherIcon: [element.weather[0].icon]
           });
         }
       });
@@ -129,42 +147,47 @@ const Weather = () => {
     }
   }
 
-
   return(
     <div>
-    <div className='container mt-5'>
-      <nav className='navbar'>
-        <a className='navbar-brand' href='/'>Weather</a>
-        <ul className="navbar-nav mr-auto">
-      <li className="nav-item ">
-        <a className="nav-link" href="/">Home</a>
-      </li>
-      <li className="nav-item">
-        <a className="nav-link" href="/search">Search</a>
-      </li>
-      </ul>
-      </nav>
-    </div>
+    <Navbar/>
     <div className={`container mt-5 ${weatherClass}`}>
-      <h2 className="text-center mb-4">Weather Forecast for {city}</h2>
+      <h1 className="city">{city}</h1>
       {latestForecast && (
         <div className="text-center custom-text">
-          <h3>Date/Time: {latestForecast.dt_txt}</h3>
-          <h3>Temperature: {Math.round(latestForecast.main.temp)}&deg;C</h3>
-          <img src={`https://openweathermap.org/img/wn/${latestForecast.weather[0].icon}@2x.png`} alt="Weather Icon"/>
-          <h3>Weather Conditions: {latestForecast.weather[0].description}</h3>
+          <div className='d-flex flex-row justify-content-left'>
+            <h1 className='align-self-center temperature'>{Math.round(latestForecast.main.temp)}&deg;C</h1>
+            <span className='icon'>
+            <img src={`https://openweathermap.org/img/wn/${latestForecast.weather[0].icon}@2x.png`} className='weather-icon' alt="Weather Icon"/>
+            </span>
+            </div>
+            <div className='description'>
+            <h3>{latestForecast.weather[0].description.charAt(0).toUpperCase() + latestForecast.weather[0].description.slice(1)}</h3>
+            <h3>{getDate(latestForecast)}</h3>
+            </div>
+            <div className='d-flex flex-row text-start'>
+              <h4><span className='fw-bold'>{Math.round(latestForecast.main.temp_max)}&deg;C</span> | <span className='fw-light'>{Math.round(latestForecast.main.temp_min)}&deg;C </span></h4>
+            </div>
         </div>
       )}
-
+      <div className='main-daily-forecast'>
+      <h3>Daily Forecast</h3>
+      <div className='daily-forecast'>
       {forecastData.map((dailyForecastArray)=>{
         return(
-        <div key={dailyForecastArray.date} className='text-center custom-text'>
-          <h3>Date:{dailyForecastArray.date}</h3>
-          <h3>Max Temperature: {Math.round(dailyForecastArray.maxTemp)}&deg;C</h3>
-          <h3>Min Temperature: {Math.round(dailyForecastArray.minTemp)}&deg;C</h3>
+        <div key={dailyForecastArray.date} className='text-center multi-forecast'>
+          <h3>{dailyForecastArray.day}</h3>
+          <h3>{dailyForecastArray.formattedDate}</h3>
+          <h3 ><span className='fw-bold'>{Math.round(dailyForecastArray.maxTemp)}&deg;C</span> | {Math.round(dailyForecastArray.minTemp)}&deg;C</h3>
+          <h3></h3>
+          <span className='icon-small'>
+          <img src={`https://openweathermap.org/img/wn/${latestForecast.weather[0].icon}@2x.png`} alt="Weather Icon"/>
+          </span>
+          <h3>{dailyForecastArray.weatherConditions[0]}</h3>
         </div>
         );
       })}
+      </div>
+      </div>
     </div>
     </div>
   );
